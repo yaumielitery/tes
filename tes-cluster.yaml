@@ -1,0 +1,26 @@
+apiVersion: eksctl.io/v1alpha5
+kind: ClusterConfig
+
+metadata:
+  name: cluster-insw
+  region: ap-southeast-1
+
+vpc:
+  securityGroup: "sg-0298f4068320ef757"
+  subnets:
+    private:
+      ap-southeast-1b:
+          id: "subnet-01c341509a32ac52a"
+      ap-southeast-1c:
+          id: "subnet-09b1458c8affc3a83"
+
+iam: 
+  serviceRoleARN: "arn:aws:iam::132816646222:role/aws-reserved/sso.amazonaws.com/ap-southeast-1/AWSReservedSSO_AdministratorAccess_36c38165d7deba47"
+
+nodeGroups:
+  - name: ng-1-insw-worker
+    labels: { role: workers }
+    instanceType: c5.large
+    desiredCapacity: 2
+    privateNetworking: true
+ 
